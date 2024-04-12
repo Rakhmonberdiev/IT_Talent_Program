@@ -1,6 +1,9 @@
 ﻿using AutoMapper;
 using IT_Talent_Program.Dtos;
+using IT_Talent_Program.Entities;
+using IT_Talent_Program.Extensions;
 using IT_Talent_Program.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -39,6 +42,32 @@ namespace IT_Talent_Program.Controllers
                 Token = _tokenGen.GenerateToken(user)
             };
         }
-
+        [Authorize]
+        [HttpPost("register")]
+        public async Task<ActionResult> Register([FromForm]RegisterDto registerDto)
+        {
+            var currentUser = await _userRepository.GetUserByLogin(User.GetLogin());
+            if(currentUser.Login==registerDto.Login)
+            {
+                BadRequest();
+            }
+            if(currentUser.Admin)
+            {   
+                var existingUser = await _userRepository.GetUserByLogin(registerDto.Login);
+                if (existingUser != null)
+                {
+                    return BadRequest("A user with this login already exists.");
+                }
+                var newUser = _mapper.Map<User>(registerDto);
+                newUser.CreatedBy = currentUser.Login;
+                await _userRepository.Create(newUser);
+                return Ok("A new user has been successfully created.");
+            }
+            else
+            {
+                return BadRequest("Access is denied. Only an administrator can create a user.");
+            }
+         
+        }
     }
 }
