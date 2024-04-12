@@ -10,5 +10,22 @@ namespace IT_Talent_Program.Data
         }
 
         public DbSet<User> Users { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<User>().HasData(
+                new User
+                {
+                    Id = Guid.NewGuid(),
+                    Login = "admin",
+                    Password = "admin123*",
+                    Name = "admin",
+                    Gender = 2,
+                    Admin = true,
+                    CreatedBy = "admin"
+                });
+        }
     }
 }
