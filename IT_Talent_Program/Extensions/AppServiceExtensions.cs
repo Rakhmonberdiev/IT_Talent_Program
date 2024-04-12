@@ -13,6 +13,8 @@ namespace IT_Talent_Program.Extensions
                 opt.UseSqlite(configuration.GetConnectionString("Sql"));
             });
             services.AddScoped<ITokenGen, TokenGen>();
+            services.AddScoped<IUserRepository, UserRepository>();
+     
 
             return services;
         }
