@@ -1,510 +1,510 @@
 {
-    "collection": {
-        "info": {
-            "_postman_id": "4bc8ab91-103a-4c8f-881b-a3e1172bdf4c",
-            "name": "IT_Talent_Program",
-            "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-            "updatedAt": "2024-04-13T13:16:58.000Z",
-            "uid": "19583729-4bc8ab91-103a-4c8f-881b-a3e1172bdf4c",
-            "createdAt": null,
-            "lastUpdatedBy": null
-        },
-        "item": [
-            {
-                "name": "login",
-                "event": [
-                    {
-                        "listen": "test",
-                        "script": {
-                            "id": "514bf023-4b74-4bad-a5be-ff682c582ca6",
-                            "exec": [
-                                "var response = pm.response.json();\r",
-                                "\r",
-                                "pm.collectionVariables.set(\"adminToken\", response.token);"
-                            ],
-                            "type": "text/javascript",
-                            "packages": {}
-                        }
-                    }
-                ],
-                "id": "b1f0ba92-53d8-4d8e-8603-40ee3cff9f44",
-                "protocolProfileBehavior": {
-                    "disableBodyPruning": true
-                },
-                "request": {
-                    "method": "POST",
-                    "header": [],
-                    "body": {
-                        "mode": "raw",
-                        "raw": "{\r\n  \"login\": \"admin\",\r\n  \"password\": \"admin123*\"\r\n}",
-                        "options": {
-                            "raw": {
-                                "language": "json"
-                            }
-                        }
-                    },
-                    "url": {
-                        "raw": "http://localhost:5056/api/Users/login",
-                        "protocol": "http",
-                        "host": [
-                            "localhost"
-                        ],
-                        "port": "5056",
-                        "path": [
-                            "api",
-                            "Users",
-                            "login"
-                        ]
-                    }
-                },
-                "response": [],
-                "uid": "19583729-b1f0ba92-53d8-4d8e-8603-40ee3cff9f44"
-            },
-            {
-                "name": "register",
-                "id": "5951c2c5-e2e0-460c-91e6-a4e58f45402e",
-                "protocolProfileBehavior": {
-                    "disableBodyPruning": true
-                },
-                "request": {
-                    "auth": {
-                        "type": "bearer",
-                        "bearer": [
-                            {
-                                "key": "token",
-                                "value": "{{adminToken}}",
-                                "type": "string"
-                            }
-                        ]
-                    },
-                    "method": "POST",
-                    "header": [],
-                    "body": {
-                        "mode": "formdata",
-                        "formdata": [
-                            {
-                                "key": "Login",
-                                "value": "user",
-                                "type": "text"
-                            },
-                            {
-                                "key": "Password",
-                                "value": "1",
-                                "type": "text"
-                            },
-                            {
-                                "key": "Name",
-                                "value": "testuser",
-                                "type": "text"
-                            },
-                            {
-                                "key": "Gender",
-                                "value": "1",
-                                "type": "text"
-                            },
-                            {
-                                "key": "Birthday",
-                                "value": "",
-                                "type": "text"
-                            },
-                            {
-                                "key": "Admin",
-                                "value": "false",
-                                "type": "text",
-                                "disabled": true
-                            }
-                        ]
-                    },
-                    "url": {
-                        "raw": "http://localhost:5056/api/Users/register",
-                        "protocol": "http",
-                        "host": [
-                            "localhost"
-                        ],
-                        "port": "5056",
-                        "path": [
-                            "api",
-                            "Users",
-                            "register"
-                        ]
-                    }
-                },
-                "response": [],
-                "uid": "19583729-5951c2c5-e2e0-460c-91e6-a4e58f45402e"
-            },
-            {
-                "name": "Update-user",
-                "id": "b44f6f45-9efd-4836-ba84-6cfc7dff04a2",
-                "protocolProfileBehavior": {
-                    "disableBodyPruning": true
-                },
-                "request": {
-                    "auth": {
-                        "type": "bearer",
-                        "bearer": [
-                            {
-                                "key": "token",
-                                "value": "{{adminToken}}",
-                                "type": "string"
-                            }
-                        ]
-                    },
-                    "method": "PUT",
-                    "header": [],
-                    "body": {
-                        "mode": "formdata",
-                        "formdata": [
-                            {
-                                "key": "Name",
-                                "value": "Jamoliddin",
-                                "type": "text"
-                            },
-                            {
-                                "key": "Gender",
-                                "value": "2",
-                                "type": "text"
-                            },
-                            {
-                                "key": "Birthday",
-                                "value": "",
-                                "type": "text"
-                            },
-                            {
-                                "key": "login",
-                                "value": "test",
-                                "type": "text"
-                            }
-                        ]
-                    },
-                    "url": {
-                        "raw": "http://localhost:5056/api/Users/update",
-                        "protocol": "http",
-                        "host": [
-                            "localhost"
-                        ],
-                        "port": "5056",
-                        "path": [
-                            "api",
-                            "Users",
-                            "update"
-                        ]
-                    }
-                },
-                "response": [],
-                "uid": "19583729-b44f6f45-9efd-4836-ba84-6cfc7dff04a2"
-            },
-            {
-                "name": "Update-password",
-                "id": "0c09753f-7eb9-452d-ac44-e3e894b80017",
-                "protocolProfileBehavior": {
-                    "disableBodyPruning": true
-                },
-                "request": {
-                    "auth": {
-                        "type": "bearer",
-                        "bearer": [
-                            {
-                                "key": "token",
-                                "value": "{{adminToken}}",
-                                "type": "string"
-                            }
-                        ]
-                    },
-                    "method": "PUT",
-                    "header": [],
-                    "body": {
-                        "mode": "formdata",
-                        "formdata": [
-                            {
-                                "key": "Login",
-                                "value": "user",
-                                "type": "text"
-                            },
-                            {
-                                "key": "Password",
-                                "value": "asd",
-                                "type": "text"
-                            }
-                        ]
-                    },
-                    "url": {
-                        "raw": "http://localhost:5056/api/Users/update-password",
-                        "protocol": "http",
-                        "host": [
-                            "localhost"
-                        ],
-                        "port": "5056",
-                        "path": [
-                            "api",
-                            "Users",
-                            "update-password"
-                        ]
-                    }
-                },
-                "response": [],
-                "uid": "19583729-0c09753f-7eb9-452d-ac44-e3e894b80017"
-            },
-            {
-                "name": "Update-login",
-                "id": "2ad439c3-0163-4aa4-bba7-d65081607aa9",
-                "protocolProfileBehavior": {
-                    "disableBodyPruning": true
-                },
-                "request": {
-                    "auth": {
-                        "type": "bearer",
-                        "bearer": [
-                            {
-                                "key": "token",
-                                "value": "{{adminToken}}",
-                                "type": "string"
-                            }
-                        ]
-                    },
-                    "method": "PUT",
-                    "header": [],
-                    "body": {
-                        "mode": "formdata",
-                        "formdata": [
-                            {
-                                "key": "Login",
-                                "value": "user",
-                                "type": "text"
-                            },
-                            {
-                                "key": "newLogin",
-                                "value": "test",
-                                "type": "text"
-                            }
-                        ]
-                    },
-                    "url": {
-                        "raw": "http://localhost:5056/api/Users/update-login",
-                        "protocol": "http",
-                        "host": [
-                            "localhost"
-                        ],
-                        "port": "5056",
-                        "path": [
-                            "api",
-                            "Users",
-                            "update-login"
-                        ]
-                    }
-                },
-                "response": [],
-                "uid": "19583729-2ad439c3-0163-4aa4-bba7-d65081607aa9"
-            },
-            {
-                "name": "GetActiveUsers",
-                "id": "c7fbca8d-6205-4584-bb2a-7054fd7b1f16",
-                "protocolProfileBehavior": {
-                    "disableBodyPruning": true
-                },
-                "request": {
-                    "auth": {
-                        "type": "bearer",
-                        "bearer": [
-                            {
-                                "key": "token",
-                                "value": "{{adminToken}}",
-                                "type": "string"
-                            }
-                        ]
-                    },
-                    "method": "GET",
-                    "header": [],
-                    "url": {
-                        "raw": "http://localhost:5056/api/Users/get-active-users",
-                        "protocol": "http",
-                        "host": [
-                            "localhost"
-                        ],
-                        "port": "5056",
-                        "path": [
-                            "api",
-                            "Users",
-                            "get-active-users"
-                        ]
-                    }
-                },
-                "response": [],
-                "uid": "19583729-c7fbca8d-6205-4584-bb2a-7054fd7b1f16"
-            },
-            {
-                "name": "GetByLogin",
-                "id": "4db15e0d-73f7-49a1-af5d-a8d4f9c02834",
-                "protocolProfileBehavior": {
-                    "disableBodyPruning": true
-                },
-                "request": {
-                    "auth": {
-                        "type": "bearer",
-                        "bearer": [
-                            {
-                                "key": "token",
-                                "value": "{{adminToken}}",
-                                "type": "string"
-                            }
-                        ]
-                    },
-                    "method": "GET",
-                    "header": [],
-                    "url": {
-                        "raw": "http://localhost:5056/api/Users/get-by-login?login=admin",
-                        "protocol": "http",
-                        "host": [
-                            "localhost"
-                        ],
-                        "port": "5056",
-                        "path": [
-                            "api",
-                            "Users",
-                            "get-by-login"
-                        ],
-                        "query": [
-                            {
-                                "key": "login",
-                                "value": "admin"
-                            }
-                        ]
-                    }
-                },
-                "response": [],
-                "uid": "19583729-4db15e0d-73f7-49a1-af5d-a8d4f9c02834"
-            },
-            {
-                "name": "getall-by-age",
-                "id": "c5e7ca0e-566e-446d-99f4-3bc62f9383d8",
-                "protocolProfileBehavior": {
-                    "disableBodyPruning": true
-                },
-                "request": {
-                    "auth": {
-                        "type": "bearer",
-                        "bearer": [
-                            {
-                                "key": "token",
-                                "value": "{{adminToken}}",
-                                "type": "string"
-                            }
-                        ]
-                    },
-                    "method": "GET",
-                    "header": [],
-                    "url": {
-                        "raw": "http://localhost:5056/api/Users/getall-by-age?age=24",
-                        "protocol": "http",
-                        "host": [
-                            "localhost"
-                        ],
-                        "port": "5056",
-                        "path": [
-                            "api",
-                            "Users",
-                            "getall-by-age"
-                        ],
-                        "query": [
-                            {
-                                "key": "age",
-                                "value": "24"
-                            }
-                        ]
-                    }
-                },
-                "response": [],
-                "uid": "19583729-c5e7ca0e-566e-446d-99f4-3bc62f9383d8"
-            },
-            {
-                "name": "DeleteByLogin",
-                "id": "831362ae-cd30-4735-ac70-607d4ed6ee18",
-                "protocolProfileBehavior": {
-                    "disableBodyPruning": true
-                },
-                "request": {
-                    "auth": {
-                        "type": "bearer",
-                        "bearer": [
-                            {
-                                "key": "token",
-                                "value": "{{adminToken}}",
-                                "type": "string"
-                            }
-                        ]
-                    },
-                    "method": "DELETE",
-                    "header": [],
-                    "url": {
-                        "raw": "http://localhost:5056/api/Users/delete?login=user",
-                        "protocol": "http",
-                        "host": [
-                            "localhost"
-                        ],
-                        "port": "5056",
-                        "path": [
-                            "api",
-                            "Users",
-                            "delete"
-                        ],
-                        "query": [
-                            {
-                                "key": "login",
-                                "value": "user"
-                            }
-                        ]
-                    }
-                },
-                "response": [],
-                "uid": "19583729-831362ae-cd30-4735-ac70-607d4ed6ee18"
-            },
-            {
-                "name": "restore",
-                "id": "ca653a89-bb43-4623-82ea-ace9dbb44169",
-                "protocolProfileBehavior": {
-                    "disableBodyPruning": true
-                },
-                "request": {
-                    "auth": {
-                        "type": "bearer",
-                        "bearer": [
-                            {
-                                "key": "token",
-                                "value": "{{adminToken}}",
-                                "type": "string"
-                            }
-                        ]
-                    },
-                    "method": "PUT",
-                    "header": [],
-                    "url": {
-                        "raw": "http://localhost:5056/api/Users/restore?login=user",
-                        "protocol": "http",
-                        "host": [
-                            "localhost"
-                        ],
-                        "port": "5056",
-                        "path": [
-                            "api",
-                            "Users",
-                            "restore"
-                        ],
-                        "query": [
-                            {
-                                "key": "login",
-                                "value": "user"
-                            }
-                        ]
-                    }
-                },
-                "response": [],
-                "uid": "19583729-ca653a89-bb43-4623-82ea-ace9dbb44169"
+  "collection": {
+    "info": {
+      "_postman_id": "4bc8ab91-103a-4c8f-881b-a3e1172bdf4c",
+      "name": "IT_Talent_Program",
+      "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+      "updatedAt": "2024-04-13T16:18:06.000Z",
+      "uid": "19583729-4bc8ab91-103a-4c8f-881b-a3e1172bdf4c",
+      "createdAt": null,
+      "lastUpdatedBy": null
+    },
+    "item": [
+      {
+        "name": "login",
+        "event": [
+          {
+            "listen": "test",
+            "script": {
+              "id": "514bf023-4b74-4bad-a5be-ff682c582ca6",
+              "exec": [
+                "var response = pm.response.json();\r",
+                "\r",
+                "pm.collectionVariables.set(\"adminToken\", response.token);"
+              ],
+              "type": "text/javascript",
+              "packages": {}
             }
+          }
         ],
-        "variable": [
-            {
-                "key": "adminToken",
-                "value": ""
+        "id": "b1f0ba92-53d8-4d8e-8603-40ee3cff9f44",
+        "protocolProfileBehavior": {
+          "disableBodyPruning": true
+        },
+        "request": {
+          "method": "POST",
+          "header": [],
+          "body": {
+            "mode": "raw",
+            "raw": "{\r\n  \"login\": \"admin\",\r\n  \"password\": \"admin123\"\r\n}",
+            "options": {
+              "raw": {
+                "language": "json"
+              }
             }
-        ]
-    }
+          },
+          "url": {
+            "raw": "http://localhost:5056/api/Users/login",
+            "protocol": "http",
+            "host": [
+              "localhost"
+            ],
+            "port": "5056",
+            "path": [
+              "api",
+              "Users",
+              "login"
+            ]
+          }
+        },
+        "response": [],
+        "uid": "19583729-b1f0ba92-53d8-4d8e-8603-40ee3cff9f44"
+      },
+      {
+        "name": "register",
+        "id": "5951c2c5-e2e0-460c-91e6-a4e58f45402e",
+        "protocolProfileBehavior": {
+          "disableBodyPruning": true
+        },
+        "request": {
+          "auth": {
+            "type": "bearer",
+            "bearer": [
+              {
+                "key": "token",
+                "value": "{{adminToken}}",
+                "type": "string"
+              }
+            ]
+          },
+          "method": "POST",
+          "header": [],
+          "body": {
+            "mode": "formdata",
+            "formdata": [
+              {
+                "key": "Login",
+                "value": "user",
+                "type": "text"
+              },
+              {
+                "key": "Password",
+                "value": "1",
+                "type": "text"
+              },
+              {
+                "key": "Name",
+                "value": "testuser151",
+                "type": "text"
+              },
+              {
+                "key": "Gender",
+                "value": "1",
+                "type": "text"
+              },
+              {
+                "key": "Birthday",
+                "value": "",
+                "type": "text"
+              },
+              {
+                "key": "Admin",
+                "value": "false",
+                "type": "text",
+                "disabled": true
+              }
+            ]
+          },
+          "url": {
+            "raw": "http://localhost:5056/api/Users/register",
+            "protocol": "http",
+            "host": [
+              "localhost"
+            ],
+            "port": "5056",
+            "path": [
+              "api",
+              "Users",
+              "register"
+            ]
+          }
+        },
+        "response": [],
+        "uid": "19583729-5951c2c5-e2e0-460c-91e6-a4e58f45402e"
+      },
+      {
+        "name": "Update-user",
+        "id": "b44f6f45-9efd-4836-ba84-6cfc7dff04a2",
+        "protocolProfileBehavior": {
+          "disableBodyPruning": true
+        },
+        "request": {
+          "auth": {
+            "type": "bearer",
+            "bearer": [
+              {
+                "key": "token",
+                "value": "{{adminToken}}",
+                "type": "string"
+              }
+            ]
+          },
+          "method": "PUT",
+          "header": [],
+          "body": {
+            "mode": "formdata",
+            "formdata": [
+              {
+                "key": "Name",
+                "value": "Jamoliddin",
+                "type": "text"
+              },
+              {
+                "key": "Gender",
+                "value": "2",
+                "type": "text"
+              },
+              {
+                "key": "Birthday",
+                "value": "",
+                "type": "text"
+              },
+              {
+                "key": "login",
+                "value": "test",
+                "type": "text"
+              }
+            ]
+          },
+          "url": {
+            "raw": "http://localhost:5056/api/Users/update",
+            "protocol": "http",
+            "host": [
+              "localhost"
+            ],
+            "port": "5056",
+            "path": [
+              "api",
+              "Users",
+              "update"
+            ]
+          }
+        },
+        "response": [],
+        "uid": "19583729-b44f6f45-9efd-4836-ba84-6cfc7dff04a2"
+      },
+      {
+        "name": "Update-password",
+        "id": "0c09753f-7eb9-452d-ac44-e3e894b80017",
+        "protocolProfileBehavior": {
+          "disableBodyPruning": true
+        },
+        "request": {
+          "auth": {
+            "type": "bearer",
+            "bearer": [
+              {
+                "key": "token",
+                "value": "{{adminToken}}",
+                "type": "string"
+              }
+            ]
+          },
+          "method": "PUT",
+          "header": [],
+          "body": {
+            "mode": "formdata",
+            "formdata": [
+              {
+                "key": "Login",
+                "value": "user",
+                "type": "text"
+              },
+              {
+                "key": "Password",
+                "value": "asd",
+                "type": "text"
+              }
+            ]
+          },
+          "url": {
+            "raw": "http://localhost:5056/api/Users/update-password",
+            "protocol": "http",
+            "host": [
+              "localhost"
+            ],
+            "port": "5056",
+            "path": [
+              "api",
+              "Users",
+              "update-password"
+            ]
+          }
+        },
+        "response": [],
+        "uid": "19583729-0c09753f-7eb9-452d-ac44-e3e894b80017"
+      },
+      {
+        "name": "Update-login",
+        "id": "2ad439c3-0163-4aa4-bba7-d65081607aa9",
+        "protocolProfileBehavior": {
+          "disableBodyPruning": true
+        },
+        "request": {
+          "auth": {
+            "type": "bearer",
+            "bearer": [
+              {
+                "key": "token",
+                "value": "{{adminToken}}",
+                "type": "string"
+              }
+            ]
+          },
+          "method": "PUT",
+          "header": [],
+          "body": {
+            "mode": "formdata",
+            "formdata": [
+              {
+                "key": "Login",
+                "value": "user",
+                "type": "text"
+              },
+              {
+                "key": "newLogin",
+                "value": "test",
+                "type": "text"
+              }
+            ]
+          },
+          "url": {
+            "raw": "http://localhost:5056/api/Users/update-login",
+            "protocol": "http",
+            "host": [
+              "localhost"
+            ],
+            "port": "5056",
+            "path": [
+              "api",
+              "Users",
+              "update-login"
+            ]
+          }
+        },
+        "response": [],
+        "uid": "19583729-2ad439c3-0163-4aa4-bba7-d65081607aa9"
+      },
+      {
+        "name": "GetActiveUsers",
+        "id": "c7fbca8d-6205-4584-bb2a-7054fd7b1f16",
+        "protocolProfileBehavior": {
+          "disableBodyPruning": true
+        },
+        "request": {
+          "auth": {
+            "type": "bearer",
+            "bearer": [
+              {
+                "key": "token",
+                "value": "{{adminToken}}",
+                "type": "string"
+              }
+            ]
+          },
+          "method": "GET",
+          "header": [],
+          "url": {
+            "raw": "http://localhost:5056/api/Users/get-active-users",
+            "protocol": "http",
+            "host": [
+              "localhost"
+            ],
+            "port": "5056",
+            "path": [
+              "api",
+              "Users",
+              "get-active-users"
+            ]
+          }
+        },
+        "response": [],
+        "uid": "19583729-c7fbca8d-6205-4584-bb2a-7054fd7b1f16"
+      },
+      {
+        "name": "GetByLogin",
+        "id": "4db15e0d-73f7-49a1-af5d-a8d4f9c02834",
+        "protocolProfileBehavior": {
+          "disableBodyPruning": true
+        },
+        "request": {
+          "auth": {
+            "type": "bearer",
+            "bearer": [
+              {
+                "key": "token",
+                "value": "{{adminToken}}",
+                "type": "string"
+              }
+            ]
+          },
+          "method": "GET",
+          "header": [],
+          "url": {
+            "raw": "http://localhost:5056/api/Users/get-by-login?login=admin",
+            "protocol": "http",
+            "host": [
+              "localhost"
+            ],
+            "port": "5056",
+            "path": [
+              "api",
+              "Users",
+              "get-by-login"
+            ],
+            "query": [
+              {
+                "key": "login",
+                "value": "admin"
+              }
+            ]
+          }
+        },
+        "response": [],
+        "uid": "19583729-4db15e0d-73f7-49a1-af5d-a8d4f9c02834"
+      },
+      {
+        "name": "getall-by-age",
+        "id": "c5e7ca0e-566e-446d-99f4-3bc62f9383d8",
+        "protocolProfileBehavior": {
+          "disableBodyPruning": true
+        },
+        "request": {
+          "auth": {
+            "type": "bearer",
+            "bearer": [
+              {
+                "key": "token",
+                "value": "{{adminToken}}",
+                "type": "string"
+              }
+            ]
+          },
+          "method": "GET",
+          "header": [],
+          "url": {
+            "raw": "http://localhost:5056/api/Users/getall-by-age?age=24",
+            "protocol": "http",
+            "host": [
+              "localhost"
+            ],
+            "port": "5056",
+            "path": [
+              "api",
+              "Users",
+              "getall-by-age"
+            ],
+            "query": [
+              {
+                "key": "age",
+                "value": "24"
+              }
+            ]
+          }
+        },
+        "response": [],
+        "uid": "19583729-c5e7ca0e-566e-446d-99f4-3bc62f9383d8"
+      },
+      {
+        "name": "DeleteByLogin",
+        "id": "831362ae-cd30-4735-ac70-607d4ed6ee18",
+        "protocolProfileBehavior": {
+          "disableBodyPruning": true
+        },
+        "request": {
+          "auth": {
+            "type": "bearer",
+            "bearer": [
+              {
+                "key": "token",
+                "value": "{{adminToken}}",
+                "type": "string"
+              }
+            ]
+          },
+          "method": "DELETE",
+          "header": [],
+          "url": {
+            "raw": "http://localhost:5056/api/Users/delete?login=user",
+            "protocol": "http",
+            "host": [
+              "localhost"
+            ],
+            "port": "5056",
+            "path": [
+              "api",
+              "Users",
+              "delete"
+            ],
+            "query": [
+              {
+                "key": "login",
+                "value": "user"
+              }
+            ]
+          }
+        },
+        "response": [],
+        "uid": "19583729-831362ae-cd30-4735-ac70-607d4ed6ee18"
+      },
+      {
+        "name": "restore",
+        "id": "ca653a89-bb43-4623-82ea-ace9dbb44169",
+        "protocolProfileBehavior": {
+          "disableBodyPruning": true
+        },
+        "request": {
+          "auth": {
+            "type": "bearer",
+            "bearer": [
+              {
+                "key": "token",
+                "value": "{{adminToken}}",
+                "type": "string"
+              }
+            ]
+          },
+          "method": "PUT",
+          "header": [],
+          "url": {
+            "raw": "http://localhost:5056/api/Users/restore?login=user",
+            "protocol": "http",
+            "host": [
+              "localhost"
+            ],
+            "port": "5056",
+            "path": [
+              "api",
+              "Users",
+              "restore"
+            ],
+            "query": [
+              {
+                "key": "login",
+                "value": "user"
+              }
+            ]
+          }
+        },
+        "response": [],
+        "uid": "19583729-ca653a89-bb43-4623-82ea-ace9dbb44169"
+      }
+    ],
+    "variable": [
+      {
+        "key": "adminToken",
+        "value": ""
+      }
+    ]
+  }
 }

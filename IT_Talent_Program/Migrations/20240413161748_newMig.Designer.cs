@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IT_Talent_Program.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240413122157_newMig")]
+    [Migration("20240413161748_newMig")]
     partial class newMig
     {
         /// <inheritdoc />
@@ -73,15 +73,15 @@ namespace IT_Talent_Program.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("d6322c3e-99c1-4656-af53-62233db5ea73"),
+                            Id = new Guid("58849740-8502-4949-a121-82c907e43717"),
                             Admin = true,
                             Birthday = new DateTime(2000, 4, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreatedBy = "admin",
-                            CreatedOn = new DateTime(2024, 4, 13, 12, 21, 57, 364, DateTimeKind.Utc).AddTicks(2017),
+                            CreatedBy = "system",
+                            CreatedOn = new DateTime(2024, 4, 13, 16, 17, 48, 55, DateTimeKind.Utc).AddTicks(6740),
                             Gender = 2,
                             Login = "admin",
                             Name = "admin",
-                            Password = "admin123*"
+                            Password = "admin123"
                         });
                 });
 #pragma warning restore 612, 618

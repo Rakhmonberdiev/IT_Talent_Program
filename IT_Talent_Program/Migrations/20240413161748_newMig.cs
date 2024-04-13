@@ -37,7 +37,7 @@ namespace IT_Talent_Program.Migrations
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "Admin", "Birthday", "CreatedBy", "CreatedOn", "Gender", "Login", "ModifiedBy", "ModifiedOn", "Name", "Password", "RevokedBy", "RevokedOn" },
-                values: new object[] { new Guid("d6322c3e-99c1-4656-af53-62233db5ea73"), true, new DateTime(2000, 4, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), "admin", new DateTime(2024, 4, 13, 12, 21, 57, 364, DateTimeKind.Utc).AddTicks(2017), 2, "admin", null, null, "admin", "admin123*", null, null });
+                values: new object[] { new Guid("58849740-8502-4949-a121-82c907e43717"), true, new DateTime(2000, 4, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), "system", new DateTime(2024, 4, 13, 16, 17, 48, 55, DateTimeKind.Utc).AddTicks(6740), 2, "admin", null, null, "admin", "admin123", null, null });
         }
 
         /// <inheritdoc />

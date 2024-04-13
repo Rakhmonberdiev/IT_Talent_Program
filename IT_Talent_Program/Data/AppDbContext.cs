@@ -20,11 +20,11 @@ namespace IT_Talent_Program.Data
                 {
                     Id = Guid.NewGuid(),
                     Login = "admin",
-                    Password = "admin123*",
+                    Password = "admin123",
                     Name = "admin",
                     Gender = 2,
                     Admin = true,
-                    CreatedBy = "admin",
+                    CreatedBy = "system",
                     Birthday = new DateTime(2000,4,3)
                 });
         }

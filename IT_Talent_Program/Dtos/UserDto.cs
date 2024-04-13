@@ -4,7 +4,7 @@
     {
         public string Name { get; set; }
         public string Gender { get; set; }
-        public DateTime DateOfBirth { get; set; }
+        public DateTime Birthday { get; set; }
         public string IsActive { get; set; }
     }
 }
