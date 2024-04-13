@@ -232,5 +232,21 @@ namespace IT_Talent_Program.Controllers
                 return BadRequest("Access is denied.");
             }
         }
+
+        [Authorize]
+        [HttpGet("getall-by-age")]
+        public async Task<ActionResult<List<User>>> GetAllByAge(int age=18)
+        {
+            var currentUser = await _userRepository.GetUserByLogin(User.GetLogin());
+            if (currentUser.Admin)
+            {
+                var users = await _userRepository.GetUsersByAge(age);
+                return users;
+            }
+            else
+            {
+                return BadRequest("Access is denied.");
+            }
+        }
     }
 }

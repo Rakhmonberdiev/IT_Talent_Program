@@ -8,5 +8,6 @@ namespace IT_Talent_Program.Repositories
         Task Create(User user);
         Task Update(User user);
         Task<List<User>> GetActiveUsers();
+        Task<List<User>> GetUsersByAge(int age);
     }
 }

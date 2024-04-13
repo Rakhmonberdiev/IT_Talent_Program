@@ -32,6 +32,17 @@ namespace IT_Talent_Program.Repositories
             return await _db.Users.SingleOrDefaultAsync(x => x.Login == login);
         }
 
+        public async Task<List<User>> GetUsersByAge(int age)
+        {
+            var min = DateTime.Today.AddYears(-age);
+            var query = await _db.Users
+                .Where(u => u.Birthday <= min)
+                .ToListAsync();
+
+ 
+            return query;
+        }
+
         public async Task Update(User user)
         {
             User existingUser = _db.Users.Find(user.Id);
