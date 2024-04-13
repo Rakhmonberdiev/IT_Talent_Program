@@ -36,6 +36,7 @@ namespace IT_Talent_Program.Controllers
             {
                 return Unauthorized("Invalid password");
             }
+            if (user.RevokedBy != null) return BadRequest("Your account deleted, to restore it contact the admin");
             return new LoginResponseDto
             {
                 Login = loginRequest.Login,
@@ -71,13 +72,13 @@ namespace IT_Talent_Program.Controllers
         }
 
         [Authorize]
-        [HttpPut("update-1")]
+        [HttpPut("update")]
         public async Task<ActionResult> Update([FromForm] UserUpdateDto userUpdateDto)
         {
             var currentUser = await _userRepository.GetUserByLogin(User.GetLogin());
             
 
-            if(!currentUser.Admin&&currentUser.Login!=userUpdateDto.Login&&currentUser.RevokedBy!=null)
+            if(!currentUser.Admin&&currentUser.Login!=userUpdateDto.Login)
             {
                 return BadRequest("Access is denied.");
             }
@@ -93,8 +94,50 @@ namespace IT_Talent_Program.Controllers
                     userForUpdate.ModifiedBy = currentUser.Login;
                     userForUpdate.CreatedBy = existingUser.CreatedBy;
                     userForUpdate.CreatedOn = existingUser.CreatedOn;
+                    userForUpdate.Admin = existingUser.Admin;
                     await _userRepository.Update(userForUpdate);
                     return Ok("successfully");
+                }
+                else
+                {
+                    return NotFound("user with this login not found");
+                }
+            }
+        }
+
+
+        [Authorize]
+        [HttpPut("update-password")]
+        public async Task<ActionResult> UpdatePasssword([FromForm] LoginRequestDto dto)
+        {
+            var currentUser = await _userRepository.GetUserByLogin(User.GetLogin());
+
+
+            if (!currentUser.Admin&&currentUser.Login != dto.Login)
+            {
+                return BadRequest("Access is denied.");
+            }
+            else
+            {
+                var existingUser = await _userRepository.GetUserByLogin(dto.Login);
+                if (existingUser != null)
+                {
+                    var userForUpdate = new User
+                    {
+                    Id = existingUser.Id,
+                    Password = dto.Password,
+                    Name = existingUser.Name,
+                    Login = existingUser.Login,
+                    Admin = existingUser.Admin,
+                    Gender = existingUser.Gender,
+                    ModifiedOn = existingUser.ModifiedOn,
+                    ModifiedBy = existingUser.ModifiedBy,
+                    CreatedBy = existingUser.CreatedBy,
+                    CreatedOn = existingUser.CreatedOn,
+                };
+
+                    await _userRepository.Update(userForUpdate);
+                    return Ok("Password successfully updated");
                 }
                 else
                 {
