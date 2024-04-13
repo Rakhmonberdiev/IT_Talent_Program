@@ -248,5 +248,38 @@ namespace IT_Talent_Program.Controllers
                 return BadRequest("Access is denied.");
             }
         }
+
+        [Authorize]
+        [HttpDelete("delete")]
+        public async Task<ActionResult> DeleteByLogin(string login)
+        {
+            var currentUser = await _userRepository.GetUserByLogin(User.GetLogin());
+            var existingUser = await _userRepository.GetUserByLogin(login);
+            if (existingUser == null) return NotFound("User with this login not found");
+            if (currentUser.Admin)
+            {
+                await _userRepository.Delete(existingUser);
+                return Ok("User deleted");
+            }
+            if(currentUser.Login == login)
+            {
+                existingUser.Id = existingUser.Id;
+                existingUser.Login = existingUser.Login;
+                existingUser.Name = existingUser.Name;
+                existingUser.Password = existingUser.Password;
+                existingUser.Admin = existingUser.Admin;
+                existingUser.Gender = existingUser.Gender;
+                existingUser.Birthday = existingUser.Birthday;
+                existingUser.CreatedBy = existingUser.CreatedBy;
+                existingUser.CreatedOn = existingUser.CreatedOn;
+                existingUser.ModifiedBy = existingUser.ModifiedBy;
+                existingUser.ModifiedOn = existingUser.ModifiedOn;
+                existingUser.RevokedOn = DateTime.UtcNow;
+                existingUser.RevokedBy = existingUser.Login;
+                await _userRepository.Update(existingUser);
+                return Ok("Your account deleted, to restore it contact the admin");
+            }
+            return BadRequest("Problem with deletion");
+        }
     }
 }

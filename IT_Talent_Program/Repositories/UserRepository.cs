@@ -17,6 +17,12 @@ namespace IT_Talent_Program.Repositories
             await _db.SaveChangesAsync();
         }
 
+        public async Task Delete(User user)
+        {
+            _db.Users.Remove(user);
+            await _db.SaveChangesAsync();
+        }
+
         public async Task<List<User>> GetActiveUsers()
         {
             var activeUsers = await _db.Users
