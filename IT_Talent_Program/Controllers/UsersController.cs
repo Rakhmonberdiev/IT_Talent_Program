@@ -30,7 +30,7 @@ namespace IT_Talent_Program.Controllers
             var user = await _userRepository.GetUserByLogin(loginRequest.Login);
             if (user == null)
             {
-                return Unauthorized("Invalid username");
+                return Unauthorized("Invalid login");
             }
             if (user.Password != loginRequest.Password)
             {
@@ -83,16 +83,14 @@ namespace IT_Talent_Program.Controllers
                 var existingUser = await _userRepository.GetUserByLogin(userUpdateDto.Login);
                 if(existingUser != null)
                 {
-                    var userForUpdate = _mapper.Map<User>(userUpdateDto);
-                    userForUpdate.Id = existingUser.Id;
-                    userForUpdate.Password = existingUser.Password;
-                    userForUpdate.ModifiedOn = DateTime.UtcNow;
-                    userForUpdate.ModifiedBy = currentUser.Login;
-                    userForUpdate.CreatedBy = existingUser.CreatedBy;
-                    userForUpdate.CreatedOn = existingUser.CreatedOn;
-                    userForUpdate.Admin = existingUser.Admin;
-                    await _userRepository.Update(userForUpdate);
-                    return Ok("successfully");
+                    var mapping = _mapper.Map<User>(existingUser);
+                    mapping.ModifiedOn = DateTime.UtcNow;
+                    mapping.ModifiedBy = currentUser.Login;
+                    mapping.Name = userUpdateDto.Name;
+                    mapping.Birthday = userUpdateDto.Birthday;
+                    mapping.Gender = userUpdateDto.Gender;
+                    await _userRepository.Update(mapping);
+                    return Ok("User successfully updated");
                 }
                 else
                 {
@@ -117,21 +115,11 @@ namespace IT_Talent_Program.Controllers
                 var existingUser = await _userRepository.GetUserByLogin(dto.Login);
                 if (existingUser != null)
                 {
-                    var userForUpdate = new User
-                    {
-                    Id = existingUser.Id,
-                    Password = dto.Password,
-                    Name = existingUser.Name,
-                    Login = existingUser.Login,
-                    Admin = existingUser.Admin,
-                    Gender = existingUser.Gender,
-                    ModifiedOn = DateTime.UtcNow,
-                    ModifiedBy = currentUser.Login,
-                    CreatedBy = existingUser.CreatedBy,
-                    CreatedOn = existingUser.CreatedOn,
-                    };
-
-                    await _userRepository.Update(userForUpdate);
+                    var mapping = _mapper.Map<User>(existingUser);
+                    mapping.ModifiedBy = currentUser.Login;
+                    mapping.ModifiedOn = DateTime.UtcNow;
+                    mapping.Password = dto.Password;
+                    await _userRepository.Update(mapping);
                     return Ok("Password successfully updated");
                 }
                 else
@@ -165,21 +153,11 @@ namespace IT_Talent_Program.Controllers
                     }
                     else
                     {
-                        var userForUpdate = new User
-                        {
-                            Id = existingUser.Id,
-                            Password = existingUser.Password,
-                            Name = existingUser.Name,
-                            Login = dto.NewLogin,
-                            Admin = existingUser.Admin,
-                            Gender = existingUser.Gender,
-                            ModifiedOn = DateTime.UtcNow,
-                            ModifiedBy = currentUser.Login,
-                            CreatedBy = existingUser.CreatedBy,
-                            CreatedOn = existingUser.CreatedOn,
-
-                        };
-                        await _userRepository.Update(userForUpdate);
+                        var mapping = _mapper.Map<User>(existingUser);
+                        mapping.ModifiedBy = currentUser.Login;
+                        mapping.ModifiedOn = DateTime.UtcNow;
+                        mapping.Login = dto.NewLogin;
+                        await _userRepository.Update(mapping);
                         return Ok("Login successfully updated");
                     }
                     
@@ -263,20 +241,10 @@ namespace IT_Talent_Program.Controllers
             }
             if(currentUser.Login == login)
             {
-                existingUser.Id = existingUser.Id;
-                existingUser.Login = existingUser.Login;
-                existingUser.Name = existingUser.Name;
-                existingUser.Password = existingUser.Password;
-                existingUser.Admin = existingUser.Admin;
-                existingUser.Gender = existingUser.Gender;
-                existingUser.Birthday = existingUser.Birthday;
-                existingUser.CreatedBy = existingUser.CreatedBy;
-                existingUser.CreatedOn = existingUser.CreatedOn;
-                existingUser.ModifiedBy = existingUser.ModifiedBy;
-                existingUser.ModifiedOn = existingUser.ModifiedOn;
-                existingUser.RevokedOn = DateTime.UtcNow;
-                existingUser.RevokedBy = existingUser.Login;
-                await _userRepository.Update(existingUser);
+                var mapping = _mapper.Map<User>(currentUser);
+                mapping.RevokedOn = DateTime.UtcNow;
+                mapping.RevokedBy = existingUser.Login;
+                await _userRepository.Update(mapping);
                 return Ok("Your account deleted, to restore it contact the admin");
             }
             return BadRequest("Problem with deletion");
@@ -300,21 +268,13 @@ namespace IT_Talent_Program.Controllers
 
                 if (existingUser != null)
                 {
-                        existingUser.Id = existingUser.Id;
-                        existingUser.Login = existingUser.Login;
-                        existingUser.Name = existingUser.Name;
-                        existingUser.Password = existingUser.Password;
-                        existingUser.Admin = existingUser.Admin;
-                        existingUser.Gender = existingUser.Gender;
-                        existingUser.Birthday = existingUser.Birthday;
-                        existingUser.CreatedBy = existingUser.Login;
-                        existingUser.CreatedOn = existingUser.CreatedOn;
-                        existingUser.ModifiedBy = currentUser.Login;
-                        existingUser.ModifiedOn = DateTime.UtcNow;
-                        existingUser.RevokedBy = null;
-                        existingUser.RevokedOn = null;
-                        await _userRepository.Update(existingUser);
-                        return Ok("Login successfully restored");
+                        var mapping = _mapper.Map<User>(existingUser);
+                        mapping.ModifiedBy = currentUser.Login;
+                        mapping.ModifiedOn = DateTime.UtcNow;
+                        mapping.RevokedBy = null;
+                        mapping.RevokedOn = null;
+                        await _userRepository.Update(mapping);
+                        return Ok("User successfully restored");
                 }
                 return NotFound("User with this login not found");
             }
