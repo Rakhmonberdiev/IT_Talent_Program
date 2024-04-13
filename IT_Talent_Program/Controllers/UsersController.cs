@@ -130,11 +130,11 @@ namespace IT_Talent_Program.Controllers
                     Login = existingUser.Login,
                     Admin = existingUser.Admin,
                     Gender = existingUser.Gender,
-                    ModifiedOn = existingUser.ModifiedOn,
-                    ModifiedBy = existingUser.ModifiedBy,
+                    ModifiedOn = DateTime.UtcNow,
+                    ModifiedBy = currentUser.Login,
                     CreatedBy = existingUser.CreatedBy,
                     CreatedOn = existingUser.CreatedOn,
-                };
+                    };
 
                     await _userRepository.Update(userForUpdate);
                     return Ok("Password successfully updated");
@@ -143,6 +143,53 @@ namespace IT_Talent_Program.Controllers
                 {
                     return NotFound("user with this login not found");
                 }
+            }
+        }
+
+
+        [Authorize]
+        [HttpPut("update-login")]
+        public async Task<ActionResult> UpdateLogin([FromForm] LoginUpdateDto dto)
+        {
+            var currentUser = await _userRepository.GetUserByLogin(User.GetLogin());
+            if (!currentUser.Admin && currentUser.Login != dto.Login)
+            {
+                return BadRequest("Access is denied.");
+            }
+            else
+            {
+                var existingUser = await _userRepository.GetUserByLogin(dto.Login);
+
+                if (existingUser != null)
+                {
+                    var checkLogin = await _userRepository.GetUserByLogin(dto.NewLogin);
+                    if (checkLogin != null)
+                    {
+                        BadRequest("A user with this login already exists.");
+                    }
+                    else
+                    {
+                        var userForUpdate = new User
+                        {
+                            Id = existingUser.Id,
+                            Password = existingUser.Password,
+                            Name = existingUser.Name,
+                            Login = dto.NewLogin,
+                            Admin = existingUser.Admin,
+                            Gender = existingUser.Gender,
+                            ModifiedOn = DateTime.UtcNow,
+                            ModifiedBy = currentUser.Login,
+                            CreatedBy = existingUser.CreatedBy,
+                            CreatedOn = existingUser.CreatedOn,
+
+                        };
+                        await _userRepository.Update(userForUpdate);
+                        return Ok("Login successfully updated");
+                    }
+                    
+
+                }
+                return NotFound("User with this login not found");
             }
         }
     }
