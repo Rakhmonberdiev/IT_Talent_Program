@@ -9,6 +9,7 @@ namespace IT_Talent_Program.Helpers
         public AutoMapperProf()
         {
             CreateMap<RegisterDto, User>();
+            CreateMap<UserUpdateDto, User>();
         }
 
     }

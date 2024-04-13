@@ -69,5 +69,38 @@ namespace IT_Talent_Program.Controllers
             }
          
         }
+
+        [Authorize]
+        [HttpPut("update-1")]
+        public async Task<ActionResult> Update([FromForm] UserUpdateDto userUpdateDto)
+        {
+            var currentUser = await _userRepository.GetUserByLogin(User.GetLogin());
+            
+
+            if(!currentUser.Admin&&currentUser.Login!=userUpdateDto.Login&&currentUser.RevokedBy!=null)
+            {
+                return BadRequest("Access is denied.");
+            }
+            else
+            {
+                var existingUser = await _userRepository.GetUserByLogin(userUpdateDto.Login);
+                if(existingUser != null)
+                {
+                    var userForUpdate = _mapper.Map<User>(userUpdateDto);
+                    userForUpdate.Id = existingUser.Id;
+                    userForUpdate.Password = existingUser.Password;
+                    userForUpdate.ModifiedOn = DateTime.UtcNow;
+                    userForUpdate.ModifiedBy = currentUser.Login;
+                    userForUpdate.CreatedBy = existingUser.CreatedBy;
+                    userForUpdate.CreatedOn = existingUser.CreatedOn;
+                    await _userRepository.Update(userForUpdate);
+                    return Ok("successfully");
+                }
+                else
+                {
+                    return NotFound("user with this login not found");
+                }
+            }
+        }
     }
 }
