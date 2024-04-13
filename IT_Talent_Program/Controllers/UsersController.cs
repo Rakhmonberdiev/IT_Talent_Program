@@ -192,5 +192,24 @@ namespace IT_Talent_Program.Controllers
                 return NotFound("User with this login not found");
             }
         }
+
+
+
+
+        [Authorize]
+        [HttpGet("get-active-users")]
+        public async Task<ActionResult<List<User>>> GetAllUsers()
+        {
+            var currentUser = await _userRepository.GetUserByLogin(User.GetLogin());
+            if (currentUser.Admin)
+            {
+                var activeUsers = await _userRepository.GetActiveUsers();
+                return activeUsers;
+            }
+            else
+            {
+                return BadRequest("Access is denied.");
+            }
+        }
     }
 }

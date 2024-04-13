@@ -17,6 +17,16 @@ namespace IT_Talent_Program.Repositories
             await _db.SaveChangesAsync();
         }
 
+        public async Task<List<User>> GetActiveUsers()
+        {
+            var activeUsers = await _db.Users
+                .Where(u=>u.RevokedOn == null)
+                .OrderBy(d=>d.CreatedOn)
+                .ToListAsync();
+
+            return activeUsers;
+        }
+
         public async Task<User> GetUserByLogin(string login)
         {
             return await _db.Users.SingleOrDefaultAsync(x => x.Login == login);

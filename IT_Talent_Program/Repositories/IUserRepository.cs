@@ -7,5 +7,6 @@ namespace IT_Talent_Program.Repositories
         Task<User> GetUserByLogin(string login);
         Task Create(User user);
         Task Update(User user);
+        Task<List<User>> GetActiveUsers();
     }
 }
