@@ -211,5 +211,26 @@ namespace IT_Talent_Program.Controllers
                 return BadRequest("Access is denied.");
             }
         }
+
+        [Authorize]
+        [HttpGet("get-by-login")]
+        public async Task<ActionResult<UserDto>> GetUserByLogin(string login)
+        {
+            var currentUser = await _userRepository.GetUserByLogin(User.GetLogin());
+            if (currentUser.Admin)
+            {
+                var user = await _userRepository.GetUserByLogin(login);
+                if (user == null)
+                {
+                    return NotFound("User is not found.");
+                }
+                var userToReturn = _mapper.Map<UserDto>(user);
+                return userToReturn;
+            }
+            else
+            {
+                return BadRequest("Access is denied.");
+            }
+        }
     }
 }

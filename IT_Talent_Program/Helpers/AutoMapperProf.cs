@@ -10,6 +10,8 @@ namespace IT_Talent_Program.Helpers
         {
             CreateMap<RegisterDto, User>();
             CreateMap<UserUpdateDto, User>();
+            CreateMap<User, UserDto>()
+                .ForMember(d => d.IsActive, o => o.MapFrom(s => s.RevokedOn == null ? "Active" : "Inactive"));
         }
 
     }
