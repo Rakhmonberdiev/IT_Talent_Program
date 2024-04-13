@@ -70,10 +70,11 @@ namespace IT_Talent_Program.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("ffd76aa5-653c-4d74-b954-2ae48aa8bb0f"),
+                            Id = new Guid("d6322c3e-99c1-4656-af53-62233db5ea73"),
                             Admin = true,
+                            Birthday = new DateTime(2000, 4, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CreatedBy = "admin",
-                            CreatedOn = new DateTime(2024, 4, 12, 19, 35, 38, 123, DateTimeKind.Utc).AddTicks(1394),
+                            CreatedOn = new DateTime(2024, 4, 13, 12, 21, 57, 364, DateTimeKind.Utc).AddTicks(2017),
                             Gender = 2,
                             Login = "admin",
                             Name = "admin",

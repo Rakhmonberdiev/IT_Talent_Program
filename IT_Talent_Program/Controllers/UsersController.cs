@@ -48,10 +48,7 @@ namespace IT_Talent_Program.Controllers
         public async Task<ActionResult> Register([FromForm]RegisterDto registerDto)
         {
             var currentUser = await _userRepository.GetUserByLogin(User.GetLogin());
-            if(currentUser.Login==registerDto.Login)
-            {
-                BadRequest();
-            }
+            if (currentUser.RevokedBy != null) return BadRequest("Your account deleted, to restore it contact the admin");
             if(currentUser.Admin)
             {   
                 var existingUser = await _userRepository.GetUserByLogin(registerDto.Login);
@@ -76,9 +73,8 @@ namespace IT_Talent_Program.Controllers
         public async Task<ActionResult> Update([FromForm] UserUpdateDto userUpdateDto)
         {
             var currentUser = await _userRepository.GetUserByLogin(User.GetLogin());
-            
-
-            if(!currentUser.Admin&&currentUser.Login!=userUpdateDto.Login)
+            if (currentUser.RevokedBy != null) return BadRequest("Your account deleted, to restore it contact the admin");
+            if (!currentUser.Admin&&currentUser.Login!=userUpdateDto.Login)
             {
                 return BadRequest("Access is denied.");
             }
@@ -111,8 +107,7 @@ namespace IT_Talent_Program.Controllers
         public async Task<ActionResult> UpdatePasssword([FromForm] LoginRequestDto dto)
         {
             var currentUser = await _userRepository.GetUserByLogin(User.GetLogin());
-
-
+            if (currentUser.RevokedBy != null) return BadRequest("Your account deleted, to restore it contact the admin");
             if (!currentUser.Admin&&currentUser.Login != dto.Login)
             {
                 return BadRequest("Access is denied.");
@@ -152,6 +147,7 @@ namespace IT_Talent_Program.Controllers
         public async Task<ActionResult> UpdateLogin([FromForm] LoginUpdateDto dto)
         {
             var currentUser = await _userRepository.GetUserByLogin(User.GetLogin());
+            if (currentUser.RevokedBy != null) return BadRequest("Your account deleted, to restore it contact the admin");
             if (!currentUser.Admin && currentUser.Login != dto.Login)
             {
                 return BadRequest("Access is denied.");
@@ -201,6 +197,7 @@ namespace IT_Talent_Program.Controllers
         public async Task<ActionResult<List<User>>> GetAllUsers()
         {
             var currentUser = await _userRepository.GetUserByLogin(User.GetLogin());
+            if (currentUser.RevokedBy != null) return BadRequest("Your account deleted, to restore it contact the admin");
             if (currentUser.Admin)
             {
                 var activeUsers = await _userRepository.GetActiveUsers();
@@ -217,6 +214,7 @@ namespace IT_Talent_Program.Controllers
         public async Task<ActionResult<UserDto>> GetUserByLogin(string login)
         {
             var currentUser = await _userRepository.GetUserByLogin(User.GetLogin());
+            if (currentUser.RevokedBy != null) return BadRequest("Your account deleted, to restore it contact the admin");
             if (currentUser.Admin)
             {
                 var user = await _userRepository.GetUserByLogin(login);
@@ -238,6 +236,7 @@ namespace IT_Talent_Program.Controllers
         public async Task<ActionResult<List<User>>> GetAllByAge(int age=18)
         {
             var currentUser = await _userRepository.GetUserByLogin(User.GetLogin());
+            if (currentUser.RevokedBy != null) return BadRequest("Your account deleted, to restore it contact the admin");
             if (currentUser.Admin)
             {
                 var users = await _userRepository.GetUsersByAge(age);
@@ -254,6 +253,7 @@ namespace IT_Talent_Program.Controllers
         public async Task<ActionResult> DeleteByLogin(string login)
         {
             var currentUser = await _userRepository.GetUserByLogin(User.GetLogin());
+            if (currentUser.RevokedBy != null) return BadRequest("Your account deleted, to restore it contact the admin");
             var existingUser = await _userRepository.GetUserByLogin(login);
             if (existingUser == null) return NotFound("User with this login not found");
             if (currentUser.Admin)

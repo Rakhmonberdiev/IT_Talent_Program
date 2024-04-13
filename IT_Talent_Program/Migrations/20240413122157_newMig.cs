@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace IT_Talent_Program.Migrations
 {
     /// <inheritdoc />
-    public partial class initMig : Migration
+    public partial class newMig : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -37,7 +37,7 @@ namespace IT_Talent_Program.Migrations
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "Admin", "Birthday", "CreatedBy", "CreatedOn", "Gender", "Login", "ModifiedBy", "ModifiedOn", "Name", "Password", "RevokedBy", "RevokedOn" },
-                values: new object[] { new Guid("ffd76aa5-653c-4d74-b954-2ae48aa8bb0f"), true, null, "admin", new DateTime(2024, 4, 12, 19, 35, 38, 123, DateTimeKind.Utc).AddTicks(1394), 2, "admin", null, null, "admin", "admin123*", null, null });
+                values: new object[] { new Guid("d6322c3e-99c1-4656-af53-62233db5ea73"), true, new DateTime(2000, 4, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), "admin", new DateTime(2024, 4, 13, 12, 21, 57, 364, DateTimeKind.Utc).AddTicks(2017), 2, "admin", null, null, "admin", "admin123*", null, null });
         }
 
         /// <inheritdoc />

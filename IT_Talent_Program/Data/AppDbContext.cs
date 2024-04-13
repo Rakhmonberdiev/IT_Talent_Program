@@ -24,7 +24,8 @@ namespace IT_Talent_Program.Data
                     Name = "admin",
                     Gender = 2,
                     Admin = true,
-                    CreatedBy = "admin"
+                    CreatedBy = "admin",
+                    Birthday = new DateTime(2000,4,3)
                 });
         }
     }
